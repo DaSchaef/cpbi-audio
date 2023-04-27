@@ -1,5 +1,7 @@
 import asyncio
 import re
+import logging
+
 from playsound import playsound
 
 from cbpi.api import *
