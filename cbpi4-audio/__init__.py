@@ -14,7 +14,7 @@ settings = [
     {
         "id": "hop",
         "default_file": "/home/dietpi/audio/hop.wav",
-        "default_regex": "/Hop Alert/",
+        "default_regex": "/Hop/",
         "label": "Hop should be added.",
     },
     {
@@ -30,6 +30,18 @@ settings = [
         "label": "Going to next step."
     },
     {
+        "id": "startstep",
+        "default_file": "/home/dietpi/audio/startstep.wav",
+        "default_regex": "/Timer started/",
+        "label": "Step timer starts."
+    },
+    {
+        "id": "openlid",
+        "default_file": "/home/dietpi/audio/openlid.wav",
+        "default_regex": "/Please remove lid/",
+        "label": "Open lid, boil starts."
+    },
+    {
         "id": "cool",
         "default_file": "/home/dietpi/audio/cool.wav",
         "default_regex": "/Boiling completed/",
@@ -37,7 +49,7 @@ settings = [
     },
 ]
 
-class Audio():
+class Audio(CBPiExtension):
     def __init__(self,cbpi):
         self.task = asyncio.create_task(self.run())
         self.cbpi = cbpi
@@ -52,6 +64,8 @@ class Audio():
         self.cbpi.notification.add_listener(self.cbpiNotificationEvent)
 
     async def cbpiNotificationEvent(self, cbpi, title, message, type, action):
+        message = str(message)
+        title = str(title)
         for s in settings:
             regex = self.config(f"audio_regex_{s['id']}", "//")
             m1 = re.match(regex, title)
@@ -64,3 +78,4 @@ class Audio():
 
 def setup(cbpi):
     cbpi.plugin.register("Audio", Audio)
+    pass
