@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='cbpi4-audio',
-      version='0.0.1',
+      version='0.0.2',
       description='CraftBeerPi4 Audio Plugin',
       author='DaSchaef',
       url='https://github.com/DaSchaef/cpbi-audio',
